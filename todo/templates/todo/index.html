@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>CRUD Django</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Daftar Tasks</h1>
+        <div>
+            <a href="{% url 'todo:create' %}" class="btn btn-success">Tambah baru</a>
+        </div>
+
+        <br>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width="5%" >ID</th>
+                    <th width="20%" >Judul</th>
+                    <th width="45%" >Deskripsi</th>
+                    <th width="5%" >Status</th>
+                    <th width="20%" >Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if tasks %}
+                    {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.status }}</td>
+                    <td>
+                        <a href="{% url 'todo:detail' task.id %}" class="btn btn-warning btn-sm">detail</a>
+                        <a href="{% url 'todo:update' task.id %}" class="btn btn-primary btn-sm">Ubah</a>
+                        <a href="{% url 'todo:delete' task.id %}" class="btn btn-danger btn-sm">Hapus</a>
+                    </td>
+                </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5">Data tidak ditemukan</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
